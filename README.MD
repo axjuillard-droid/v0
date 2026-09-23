@@ -27,6 +27,7 @@ Elle permet à chaque utilisateur de se connecter via l'interface à une **base 
 ![Interface Web — Onglet Scan (Étape 1 & 2)](scan.png)
 
 2. **Consulter / Rechercher** : Rechercher rapidement parmi l'ensemble des documents référencés par toutes les cellules connectées à la base.
+![Interface de Recherche Avancée — Filtres, résultats et export CSV](recherche.png)
 
 ### 1.3 Nature des Données Partagées
 > [!IMPORTANT]
@@ -310,7 +311,7 @@ L'utilisateur dispose d'une autonomie complète pour personnaliser le fonctionne
 6. **Export CSV :**
    - Exportation sur mesure des résultats de recherche sous format CSV (jusqu'à 50 000 enregistrements en streaming).
 
-![Interface de Recherche Avancée — Filtres, résultats et export CSV](recherche.png)
+
 7. **Réglages du Mode Nettoyage :**
    - Ajustement du filtre d'ancienneté (en nombre d'années) pour cibler les fichiers vides, doublons, parasites ou obsolètes.
 
