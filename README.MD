@@ -23,6 +23,9 @@ Elle permet à chaque utilisateur de se connecter via l'interface à une **base 
 1. **Publier / Alimenter** : L'indexation s'effectue via un flux en 2 étapes adapté aux réseaux d'entreprise avec reverse proxy :
    - **Étape 1 : Télécharger l'Outil de Scan Local (`scan_nas_pack.zip`)** : Télécharger le pack ZIP depuis l'onglet *Configuration*. Ce pack contient `scan_nas.exe` accompagné de son fichier `scan_nas.cfg` pré-rempli depuis la base de données avec la liste des EDS et des Cellules enregistrées. L'outil s'exécute localement sans aucune connexion réseau requise et génère un fichier `scan_resultat_YYYYMMDD_HHMMSS.json` (UTF-8 sans BOM) dans le dossier de l'exécutable.
    - **Étape 2 : Importer le Fichier de Scan JSON** : Glisser-déposer le fichier `.json` généré directement dans la zone d'import de l'onglet *Configuration* de l'interface Web — transmission sécurisée par paquets avec suivi de progression en direct vers la base PostgreSQL.
+
+![Interface Web — Onglet Scan (Étape 1 & 2)](scan.png)
+
 2. **Consulter / Rechercher** : Rechercher rapidement parmi l'ensemble des documents référencés par toutes les cellules connectées à la base.
 
 ### 1.3 Nature des Données Partagées
@@ -193,6 +196,9 @@ La base de données PostgreSQL du Catalogue NAS repose sur **3 tables optimisée
   - `GestionnaireStatutScan` / `GestionnaireVerrouScan` : Endpoint de contrôle du statut et vérification du verrou d'indexation NAS (`/api/scan/status` et `/api/scan/lock-status`).
   - `GestionnaireScanNettoyage` : Module d'analyse et détection des fichiers parasites, doublons nom+taille, fichiers anciens ou très petits (`/api/cleanup/scan`).
   - `GestionnaireArborescence` : Exploration hiérarchique de l'arborescence de fichiers avec support des séparateurs réseau multi-plateformes (`/api/tree`).
+
+![Explorateur EDS — Vue Arborescence avec panneau Détails](arborescence.png)
+
   - `GestionnaireScanExterne` : **Réception et ingestion REST des métadonnées scannées lors de l'import JSON** (`/api/scan/external-upload`). Gère le verrou NAS, la réception par paquets, l'écriture SQL `execute_values` et la purge réconciliée.
   - `GestionnaireTelechargementOutils` : Distribution du pack client (`/api/download/scanner-exe`). Interroge la base de données PostgreSQL pour lister les EDS et Cellules existants, construit le fichier `scan_nas.cfg` JSON pré-rempli et le sert assemblé avec `scan_nas.exe` dans un **ZIP en mémoire** (`scan_nas_pack.zip`).
   - `GestionnaireFichiersStatiquesSPA` : Routage des fichiers statiques compilés de l'UI React (`app/static/dist/`) et fallback SPA `index.html` avec protection d'entreprise (`no-transform`).
@@ -220,6 +226,8 @@ La base de données PostgreSQL du Catalogue NAS repose sur **3 tables optimisée
   - `BtnBrowse_Click()` : Sélection du dossier cible (`FolderBrowserDialog`).
   - `StartScanAsync()` : Indexation locale récursive (`DirectoryInfo.EnumerateFiles`), calcul MD5 et formatage des métadonnées.
   - `ExportToJson()` : Génération du fichier `scan_resultat_YYYYMMDD_HHMMSS.json` **dans le dossier du `.exe`** (`AppContext.BaseDirectory`), encodé en **UTF-8 sans BOM** (`new UTF8Encoding(false)`) pour garantir une parfaite compatibilité avec le parsing JSON du navigateur Web.
+
+![Exécutable scan_nas.exe — Interface Windows GUI (Mode Export JSON)](executable.png)
 
 ---
 
@@ -301,6 +309,8 @@ L'utilisateur dispose d'une autonomie complète pour personnaliser le fonctionne
    - Ajout, édition et suppression d'étiquettes (tags) directement sur les fiches de fichiers.
 6. **Export CSV :**
    - Exportation sur mesure des résultats de recherche sous format CSV (jusqu'à 50 000 enregistrements en streaming).
+
+![Interface de Recherche Avancée — Filtres, résultats et export CSV](recherche.png)
 7. **Réglages du Mode Nettoyage :**
    - Ajustement du filtre d'ancienneté (en nombre d'années) pour cibler les fichiers vides, doublons, parasites ou obsolètes.
 
